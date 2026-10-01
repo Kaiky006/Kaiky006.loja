@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nosssa Moda</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        /* =========================
+           CABEÇALHO
+        ========================= */
+
+        header {
+            background: linear-gradient(135deg, #ed37a4, #f8f2f2);
+            color: rgb(255, 255, 255);
+            padding: 20px 6%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(255, 255, 255, 0.15);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #f3f3f3;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: rgb(16, 15, 15);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff4d6d;
+        }
+
+        /* =========================
+           BANNER
+        ========================= */
+
+        .banner {
+            min-height: 350px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            padding: 50px 20px;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.55),
+                    rgba(0, 0, 0, 0.55)
+                ),
+                url("produtos/banner.jpg");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .banner-content {
+            color: white;
+            max-width: 700px;
+        }
+
+        .banner h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .banner p {
+            font-size: 19px;
+            margin-bottom: 25px;
+        }
+
+        .banner-button {
+            display: inline-block;
+            padding: 14px 30px;
+
+            background: #ff4d6d;
+            color: white;
+
+            text-decoration: none;
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .banner-button:hover {
+            transform: translateY(-3px);
+            background: #ff2f55;
+        }
+
+        /* =========================
+           CATEGORIAS
+        ========================= */
+
+        .categorias {
+            max-width: 1200px;
+            margin: 35px auto 10px;
+
+            padding: 0 20px;
+
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .categoria {
+            border: none;
+            background: white;
+
+            padding: 10px 20px;
+
+            border-radius: 25px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+            transition: 0.3s;
+        }
+
+        .categoria:hover,
+        .categoria.ativa {
+            background: #ff4d6d;
+            color: white;
+        }
+
+        /* =========================
+           PRODUTOS
+        ========================= */
+
+        .produtos-section {
+            max-width: 1200px;
+            margin: 40px auto;
+
+            padding: 0 20px;
+        }
+
+        .titulo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .titulo-section h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .titulo-section p {
+            color: #777;
+        }
+
+        .produtos {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+
+            gap: 25px;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .produto {
+            background: rgb(255, 254, 255);
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px rgb(255, 254, 254);
+
+            transition: 0.3s;
+
+            animation: aparecer 0.6s ease;
+        }
+
+        .produto:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 12px 30px rgb(249, 249, 249);
+        }
+
+        /* IMAGEM */
+
+        .produto-imagem {
+            display: block;
+
+            width: 100%;
+            height: 280px;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .produto-imagem img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: 0.5s;
+        }
+
+        .produto:hover .produto-imagem img {
+            transform: scale(1.07);
+        }
+
+        /* ETIQUETA */
+
+        .etiqueta {
+            position: absolute;
+
+            top: 12px;
+            left: 12px;
+
+            background: #ff4d6d;
+            color: white;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* INFORMAÇÕES */
+
+        .produto-info {
+            padding: 18px;
+        }
+
+        .produto-info h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .descricao {
+            color: #777;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 12px;
+        }
+
+        .preco {
+            font-size: 22px;
+
+            font-weight: bold;
+
+            color: #111;
+
+            margin-bottom: 15px;
+        }
+
+        /* BOTÃO */
+
+        .botao-comprar {
+            display: block;
+
+            width: 100%;
+
+            text-align: center;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background: #111;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .botao-comprar:hover {
+            background: #ff4d6d;
+        }
+
+        /* =========================
+           RODAPÉ
+        ========================= */
+
+        footer {
+            margin-top: 70px;
+
+            background: #ed37a4;
+
+            color: white;
+
+            padding: 40px 20px;
+
+            text-align: center;
+        }
+
+        footer h2 {
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            color: #aaa;
+
+            margin-bottom: 20px;
+        }
+
+        .redes {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+        }
+
+        .redes a {
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 18px;
+
+            border: 1px solid #444;
+
+            border-radius: 20px;
+
+            transition: 0.3s;
+        }
+
+        .redes a:hover {
+            background: #ff4d6d;
+            border-color: #ff4d6d;
+        }
+
+        /* =========================
+           ANIMAÇÃO
+        ========================= */
+
+        @keyframes aparecer {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .header-content {
+                flex-direction: column;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .banner {
+                min-height: 300px;
+            }
+
+            .banner h1 {
+                font-size: 34px;
+            }
+
+            .banner p {
+                font-size: 16px;
+            }
+
+            .produtos {
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 12px;
+            }
+
+            .produto-imagem {
+                height: 200px;
+            }
+
+            .produto-info {
+                padding: 13px;
+            }
+
+            .produto-info h3 {
+                font-size: 16px;
+            }
+
+            .descricao {
+                font-size: 12px;
+            }
+
+            .preco {
+                font-size: 18px;
+            }
+
+            .botao-comprar {
+                font-size: 13px;
+                padding: 10px;
+            }
+
+        }
+
+        @media (max-width: 430px) {
+
+            .produtos {
+                grid-template-columns: 1fr;
+            }
+
+            .produto-imagem {
+                height: 280px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- =========================
+         CABEÇALHO
+    ========================= -->
+
+    <header>
+
+        <div class="header-content">
+
+            <div class="logo">
+                Nossa<span>  Moda</span>
+            </div>
+
+            <nav>
+
+                <a href="#inicio">
+                    Início
+                </a>
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         BANNER
+    ========================= -->
+
+    <section class="banner" id="inicio">
+
+        <div class="banner-content">
+
+            <h1>
+                Encontre suas roupas favoritas em um só lugar!
+            </h1>
+
+            <p>
+                Confira nossa seleção de roupas e
+                acesse diretamente o site para comprar.
+            </p>
+
+            <a
+                href="#produtos"
+                class="banner-button"
+            >
+                Ver produtos
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+         PRODUTOS
+    ========================= -->
+
+    <section
+        class="produtos-section"
+        id="produtos"
+    >
+
+        <div class="titulo-section">
+
+            <h2>
+                Nossas Roupas
+            </h2>
+
+            <p>
+                Clique no produto para concluir o pedido.
+            </p>
+
+        </div>
+
+
+        <div class="produtos">
+
+
+            <!-- PRODUTO 1 -->
+
+            <div
+                class="Produto"
+                data-categoria="Roupas"
+            >
+
+                <!--
+                    COLOQUE O LINK DO PRODUTO AQUI
+                -->
+
+                <a
+                    href="https://meli.la/13sDudV"
+                    target="_blank"
+                    
+                >
+
+                </a>
+
+
+                <div class="produto-info">
+
+                    <h3>Macaquinho Fitness
+                    </h3>
+
+                    <p class="descricao">
+                       Macaquinho Fitness Feminino Poliamida - Com Forro e Proteção Solar
+                    </p>
+
+                    <div class="preco">
+                        R$ 83,85
+                    </div>
+
+
+                    <a
+                        href="https://meli.la/13sDudV"
+                        target="_blank"
+                        class="botao-comprar"   
+                    >
+                       
+                        Comprar
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUTO 2 -->
+
+            <div
+                class="produto"
+                data-categoria="Roupas"
+            >
+
+                <a
+                    href="https://meli.la/2jWWMDS"
+                    target="_blank"
+                    
+                >
+
+
+                </a>
+
+
+                <div class="produto-info">
+
+                    <h3>
+                        Conjunto Academia Fitness
+                    </h3>
+
+                    <p class="descricao">
+                       Descubra o Conjunto Academia Fitness Top e Short
+                       projetado especialmente para mulheres que buscam conforto e estilo durante suas atividades físicas. Composto por um top e um short, este conjunto
+                        é ideal para treinos intensos ou momentos de lazer. 
+                    </p>
+
+                    <div class="preco">
+                        R$ 61,68
+                    </div>
+
+                    <a
+                        href="https://meli.la/2jWWMDS"
+                        target="_blank"
+                        class="botao-comprar"
+                    >
+                        Comprar
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUTO 3 -->
+
+            <div
+                class="produto"
+                data-categoria="Roupas"
+            >
+
+                <a
+                    href="https://meli.la/2dLweKB"
+                    target="_blank"
+                    
+                >
+
+                </a>
+
+
+                <div class="produto-info">
+
+                    <h3>
+                        Conjunto Feminino Malha De Tricot
+                    </h3>
+
+                    <p class="descricao">
+                         O conjunto de inverno é composto por  blusa cacharrel que possui manga longa com pregas que destacam e dão estrutura para a peça, também possui uma gola alta e justa ao redor do pescoço além da calça estilo pantalona com bolsos. Essa peça é confeccionada em tecido lanzinha 
+                        usado principalmente durante os meses mais frios do ano.
+                    </p>
+
+                    <div class="preco">
+                        R$ 63,00
+                    </div>
+
+                    <a
+                        href="https://meli.la/2dLweKB"
+                        target="_blank"
+                        class="botao-comprar"
+                    >
+                        Comprar
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUTO 4 -->
+
+            <div
+                class="produto"
+                data-categoria="Roupas"
+            >
+
+                <a
+                    href="https://meli.la/2rVvUwZ"
+                    target="_blank"
+                   
+                >
+
+                </a>
+
+
+                <div class="produto-info">
+
+                    <h3>
+                       Conjunto Feminino De Frio
+                    </h3>
+
+                    <p class="descricao">
+                        Mulheres procuram roupas com o visual arrasador e confortável . Por isso, 
+                        o conjunto combina conforto e estilo numa só roupa.
+                    </p>
+
+                    <div class="preco">
+                        R$ 71,00
+                    </div>
+
+                    <a
+                        href="https://meli.la/2rVvUwZ"
+                        target="_blank"
+                        class="botao-comprar"
+                    >
+                        Comprar
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         RODAPÉ
+    ========================= -->
+
+    <footer id="contato">
+
+        <h2>
+            Nossa Moda
+        </h2>
+
+        <p>
+            Encontre as melhores Roupas em um só lugar.
+        </p>
+
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        function filtrarProdutos(categoria) {
+
+            const produtos =
+                document.querySelectorAll(".produto");
+
+            const botoes =
+                document.querySelectorAll(".categoria");
+
+
+            /* Remove botão ativo */
+
+            botoes.forEach(function(botao) {
+
+                botao.classList.remove("ativa");
+
+            });
+
+
+            /* Ativa botão clicado */
+
+            event.target.classList.add("ativa");
+
+
+            /* Filtra produtos */
+
+            produtos.forEach(function(produto) {
+
+                const categoriaProduto =
+                    produto.dataset.categoria;
+
+
+                if (
+                    categoria === "todos" ||
+                    categoriaProduto === categoria
+                ) {
+
+                    produto.style.display = "block";
+
+                } else {
+
+                    produto.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
